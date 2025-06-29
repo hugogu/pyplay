@@ -140,17 +140,12 @@ class MazeGenerator:
 
     def generate(self) -> None:
         """Create a new maze in `self.grid` and set start/end."""
-        start_r, start_c = random.randrange(self.rows), random.randrange(self.cols)
+        start_r, start_c = 0, 0  # Always start maze generation from top-left
         self._carve_passage(start_r, start_c)
 
-        # Choose entrance/exit according to *difficulty*
-        if self.difficulty < 0.1:
-            self.start, self.end = (0, 0), (1, 1)
-        elif self.difficulty < 0.5:
-            self.start, self.end = (0, 0), (self.rows - 1, self.cols - 1)
-        else:
-            # Use diameter endpoints for maximum path length.
-            self.start, self.end = self._longest_path_endpoints()
+        # Always set start to top-left and end to bottom-right
+        self.start = (0, 0)  # Top-left corner
+        self.end = (self.rows - 1, self.cols - 1)  # Bottom-right corner
 
     # ---------------------------------------------------------------------
     #  DRAWING WITH TURTLE
